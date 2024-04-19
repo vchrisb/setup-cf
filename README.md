@@ -3,7 +3,11 @@
 This action provides the following functionality for GitHub Actions users:
 
 - Installing a version of [Cloud Foundry CLI](https://github.com/cloudfoundry/cli) and (by default) adding it to the PATH
-- Requests a Github Actions ID_Token and uses it to login to the Cloud Foundry API using the JWT Bearer Token Grant
+- Authenticating to the Cloud Foundry API using different grant types:
+  - Password
+  - Client Credentials
+  - Client Credentials with JWT
+  - 
 
 ## Basic usage
 
@@ -15,32 +19,42 @@ steps:
 - uses: vchrisb//setup-cf@v0
   with:
     api: https://api.domain.com
-    client_id: ${{ secrets.client_id }}
-    client_secret: ${{ secrets.client_secret }}
+    username: ${{ secrets.username }}
+    password: ${{ secrets.password }}
 - run: cf push
 ```
 
 ## Parameter
-
-* `client_id`
-    * client id for access
-    * required
-* `client_secret`
-    * client secret for access
-    * required: true
-* `grant_type`
-    * grant type for access
-    * required
-    * default: `jwt-bearer`
 * `api`
     * Url of the cloud controller api
     * required
+* `client_assertion`
+    * jwt for usage with `private_key_jwt`
+* `client_id`
+    * client id for `client_credentals` or `jwt-bearer`
+* `client_secret`
+    * client secret for `client_credentals` or `jwt-bearer`
+* `grant_type`
+    * grant type for access
+    * required
+    * default: `password`
+    * valid values:
+        * `password`
+        * `client_credentals`
+        * `private_key_jwt`
+        * `jwt-bearer`
+* `id_token`
+    * id_token to be used for `jwt-bearer`, if not specified a Github id_token will be requested
+* `username`
+    * username for `password` grant
+* `password`
+    * password for `password` grant
 * `version`
     * cf cli v8 version
     * required
     * default: `8.7.10`
 * `zone`
-    * zone name
+    * zone name used audience in the JWT Bearer Token Grant
     * required
     * default: `uaa`
 
