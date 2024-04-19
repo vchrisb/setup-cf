@@ -28938,7 +28938,7 @@ function run() {
             if (org && space) {
                 yield exec.exec("cf", ["target", "-o", org, "-s", space]);
                 if (command) {
-                    yield exec.exec("cf", [command]);
+                    yield exec.exec("cf", command.match(/(?:[^\s"']+|['"][^'"]*["'])+/g));
                 }
             }
         }

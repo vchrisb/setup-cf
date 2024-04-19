@@ -172,7 +172,7 @@ async function run() {
     if (org && space) {
       await exec.exec("cf", ["target", "-o", org, "-s", space]);
       if (command) {
-        await exec.exec("cf", [command]);
+        await exec.exec("cf", command.match(/(?:[^\s"']+|['"][^'"]*["'])+/g));
       }
     }
   } catch (error) {
