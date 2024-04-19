@@ -1,0 +1,27 @@
+name: "setup-cf"
+description: "Greet someone and record the time"
+inputs:
+  client_id:
+    description: "client id for access"
+    required: true
+  client_secret:
+    description: "client secret for access"
+    required: true
+  grant_type:
+    description: "grant type for access"
+    required: true
+    default: "jwt-bearer"
+  api:
+    description: "Url of the cloud controller api"
+    required: true
+  version:
+    description: "cf cli v8 version"
+    required: true
+    default: "8.7.10"
+  zone:
+    description: "zone name"
+    required: true
+    default: "uaa"
+runs:
+  using: "node20"
+  main: "dist/index.js"
