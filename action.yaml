@@ -27,7 +27,7 @@ inputs:
     description: "username"
     required: false
   version:
-    description: "cf cli v8 version"
+    description: "cf cli version"
     required: true
     default: "8.7.10"
   zone:

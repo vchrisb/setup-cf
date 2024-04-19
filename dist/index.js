@@ -28800,7 +28800,7 @@ function install_cf(version) {
     return __awaiter(this, void 0, void 0, function* () {
         let cachedPath = tc.find("cf", version);
         if (!cachedPath) {
-            let download_url = `https://github.com/cloudfoundry/cli/releases/download/v${version}/cf8-cli_${version}_linux_x86-64.tgz`;
+            let download_url = `https://packages.cloudfoundry.org/stable?release=linux64-binary&version=${version}&source=github-rel`;
             let download = yield tc.downloadTool(download_url);
             const cfExtractedFolder = yield tc.extractTar(download);
             cachedPath = yield tc.cacheDir(cfExtractedFolder, "cf", version);

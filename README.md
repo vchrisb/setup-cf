@@ -2,7 +2,7 @@
 
 This action provides the following functionality for GitHub Actions users:
 
-- Installing a version of [Cloud Foundry CLI](https://github.com/cloudfoundry/cli) and (by default) adding it to the PATH
+- Installing a version of [Cloud Foundry CLI](https://github.com/cloudfoundry/cli) and adding it to the PATH
 - Authenticating to the Cloud Foundry API using different grant types:
   - Password
   - Client Credentials
@@ -50,7 +50,7 @@ steps:
 * `password`
     * password for `password` grant
 * `version`
-    * cf cli v8 version
+    * cf cli version
     * required
     * default: `8.7.10`
 * `zone`
