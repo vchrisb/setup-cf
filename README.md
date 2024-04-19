@@ -9,6 +9,7 @@ This action provides the following functionality for GitHub Actions users:
   - Client Credentials with JWT
   - JWT Bearer Token Grant
 - Target Org and Space
+- Run a cf command
 
 ## Basic usage
 
@@ -24,7 +25,9 @@ steps:
     password: ${{ secrets.CF_PASSWORD }}
     org: test
     space: dev
-- run: cf push
+    command: push --strategy rolling
+- name: run command with shell
+  run: cf apps
 ```
 
 ## Parameter
@@ -37,6 +40,8 @@ steps:
     * client id for `client_credentals` or `jwt-bearer`
 * `client_secret`
     * client secret for `client_credentals` or `jwt-bearer`
+* `command`
+    * run optionally a cf command
 * `grant_type`
     * grant type for access
     * required

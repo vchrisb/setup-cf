@@ -1,5 +1,9 @@
 name: "setup-cf"
-description: "Greet someone and record the time"
+author: "Christopher Banck"
+description: "Setup Cloud Foundry CLI environment."
+branding:
+  icon: "upload-cloud"
+  color: "blue"
 inputs:
   api:
     description: "Url of the cloud controller api"
@@ -12,6 +16,9 @@ inputs:
     required: false
   client_secret:
     description: "client secret"
+    required: false
+  command:
+    description: "run cf command"
     required: false
   grant_type:
     description: "grant type for requesting token"

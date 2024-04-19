@@ -98,6 +98,7 @@ async function run() {
     let client_assertion = core.getInput("client_assertion");
     let client_id = core.getInput("client_id");
     let client_secret = core.getInput("client_secret");
+    let command = core.getInput("command");
     let id_token = core.getInput("id_token");
     let username = core.getInput("username");
     let password = core.getInput("password");
@@ -170,6 +171,9 @@ async function run() {
     }
     if (org && space) {
       await exec.exec("cf", ["target", "-o", org, "-s", space]);
+      if (command) {
+        await exec.exec("cf", [command]);
+      }
     }
   } catch (error) {
     core.setFailed(error.message);
