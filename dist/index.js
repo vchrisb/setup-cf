@@ -28810,7 +28810,7 @@ function install_cf(version) {
 }
 function setup_cf(api) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield exec.exec("cf", ["api", api]);
+        yield exec.exec("cf", ["api", api], { silent: true });
     });
 }
 function request_github_idToken(aud) {
@@ -28921,19 +28921,14 @@ function run() {
                 if (!client_id || !client_secret) {
                     throw new Error(`>>> For Client Credentials authentication, client_id and client_secret need to be provided`);
                 }
-                yield exec.exec("cf", [
-                    "auth",
-                    client_id,
-                    client_secret,
-                    "--client-credentials",
-                ]);
+                yield exec.exec("cf", ["auth", client_id, client_secret, "--client-credentials"], { silent: true });
                 core.info(">>> Successfully authenticated using client credentials");
             }
             else if (grant_type == "password") {
                 if (!username || !password) {
                     throw new Error(`>>> For Password authentication, username and password need to be provided`);
                 }
-                yield exec.exec("cf", ["auth", username, password]);
+                yield exec.exec("cf", ["auth", username, password], { silent: true });
                 core.info(">>> Successfully authenticated using client credentials");
             }
             else {

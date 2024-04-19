@@ -18,7 +18,7 @@ async function install_cf(version) {
 }
 
 async function setup_cf(api) {
-  await exec.exec("cf", ["api", api]);
+  await exec.exec("cf", ["api", api], { silent: true });
 }
 
 async function request_github_idToken(aud) {
@@ -151,12 +151,11 @@ async function run() {
           `>>> For Client Credentials authentication, client_id and client_secret need to be provided`,
         );
       }
-      await exec.exec("cf", [
-        "auth",
-        client_id,
-        client_secret,
-        "--client-credentials",
-      ]);
+      await exec.exec(
+        "cf",
+        ["auth", client_id, client_secret, "--client-credentials"],
+        { silent: true },
+      );
       core.info(">>> Successfully authenticated using client credentials");
     } else if (grant_type == "password") {
       if (!username || !password) {
@@ -164,7 +163,7 @@ async function run() {
           `>>> For Password authentication, username and password need to be provided`,
         );
       }
-      await exec.exec("cf", ["auth", username, password]);
+      await exec.exec("cf", ["auth", username, password], { silent: true });
       core.info(">>> Successfully authenticated using client credentials");
     } else {
       throw new Error(`>>> Unsupported grant type: ${grant_type}`);
