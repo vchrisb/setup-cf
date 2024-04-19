@@ -61,11 +61,11 @@ async function request_token(uaaEndpoint, client_id, client_secret, id_token) {
 
 async function run() {
   try {
-    let api = core.getInput("api");
-    let grant_type = core.getInput("grant_type");
+    let api = core.getInput("api", { required: true });
+    let grant_type = core.getInput("grant_type", { required: true });
     let client_id = core.getInput("client_id");
     let client_secret = core.getInput("client_secret");
-    let version = core.getInput("version");
+    let version = core.getInput("version", { required: true });
     let zone = core.getInput("zone");
     await install_cf(version);
     core.info(`>>> cf version v${version} installed successfully`);
