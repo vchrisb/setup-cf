@@ -82,9 +82,12 @@ UAA client required for authentication:
 uaa curl /oauth/clients -X POST -H "Content-Type: application/json" -d '{"client_id" : "jwt-bearer-client", "client_secret" : "secret", "access_token_validity": 1800,  "authorities" : [ "uaa.resource" ], "authorized_grant_types" : [ "urn:ietf:params:oauth:grant-type:jwt-bearer" ], "scope": ["openid", "cloud_controller.read"], "allowedproviders" : [ "github" ], "name" : "JWT Bearer Client"}'
 ```
 
+## Developmet
+
 ### update action
 
 ```
 npm i -g @vercel/ncc
-ncc build index.ts
+npm run lint
+npm run build
 ```
