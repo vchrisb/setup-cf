@@ -17,11 +17,13 @@ See [action.yml](action.yml)
 ```yaml
 steps:
 - uses: actions/checkout@v4
-- uses: vchrisb//setup-cf@v0
+- uses: vchrisb/setup-cf@v0
   with:
-    api: https://api.domain.com
-    username: ${{ secrets.username }}
-    password: ${{ secrets.password }}
+    api: ${{ secrets.CF_API }}
+    username: ${{ secrets.CF_USERNAME }}
+    password: ${{ secrets.CF_PASSWORD }}
+    org: test
+    space: dev
 - run: cf push
 ```
 
