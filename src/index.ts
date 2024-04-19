@@ -21,8 +21,8 @@ async function setup_cf(api) {
   await exec.exec("cf", ["api", api], { silent: true });
 }
 
-async function request_github_idToken(aud) {
-  let id_token = await core.getIDToken(aud);
+async function request_github_idToken(audience) {
+  let id_token = await core.getIDToken(audience);
   return id_token;
 }
 
@@ -105,20 +105,20 @@ async function run() {
     let org = core.getInput("org");
     let space = core.getInput("space");
     let version = core.getInput("version", { required: true });
-    let zone = core.getInput("zone");
+    let audience = core.getInput("audience");
     await install_cf(version);
     core.info(`>>> cf version v${version} installed successfully`);
     await setup_cf(api);
     core.info(">>> Successfully invoked cf api");
 
     if (grant_type == "jwt-bearer") {
-      if (!zone || !client_id || !client_secret) {
+      if (!audience || !client_id || !client_secret) {
         throw new Error(
-          `>>> For JWT Bearer Token Grant zone, client_id and client_secret need to be provided`,
+          `>>> For JWT Bearer Token Grant audience, client_id and client_secret need to be provided`,
         );
       }
       if (!id_token) {
-        id_token = await request_github_idToken(zone);
+        id_token = await request_github_idToken(audience);
         core.info(">>> Successfully requested github id_token");
       }
       let uaaEndpoint = JSON.parse(fs.readFileSync(cf_config)).UaaEndpoint;

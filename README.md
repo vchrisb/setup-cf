@@ -65,8 +65,8 @@ steps:
     * cf cli version
     * required
     * default: `8.7.10`
-* `zone`
-    * zone name used for audience in the JWT Bearer Token Grant
+* `audience`
+    * audience for requesting the id_token used for JWT Bearer Token Grant
     * required
     * default: `uaa`
 

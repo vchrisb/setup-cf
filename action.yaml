@@ -8,6 +8,10 @@ inputs:
   api:
     description: "Url of the cloud controller api"
     required: true
+  audience:
+    description: "github id_token audience"
+    required: false
+    default: "uaa"
   client_assertion:
     description: "client assertion for requesting token"
     required: true
@@ -43,10 +47,6 @@ inputs:
     description: "cf cli version"
     required: true
     default: "8.7.10"
-  zone:
-    description: "zone name"
-    required: false
-    default: "uaa"
 runs:
   using: "node20"
   main: "dist/index.js"
