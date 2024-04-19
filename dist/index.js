@@ -28885,6 +28885,8 @@ function run() {
             let id_token = core.getInput("id_token");
             let username = core.getInput("username");
             let password = core.getInput("password");
+            let org = core.getInput("org");
+            let space = core.getInput("space");
             let version = core.getInput("version", { required: true });
             let zone = core.getInput("zone");
             yield install_cf(version);
@@ -28936,6 +28938,9 @@ function run() {
             }
             else {
                 throw new Error(`>>> Unsupported grant type: ${grant_type}`);
+            }
+            if (org && space) {
+                yield exec.exec("cf", ["target", "-o", org, "-s", space]);
             }
         }
         catch (error) {

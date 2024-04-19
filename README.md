@@ -8,6 +8,7 @@ This action provides the following functionality for GitHub Actions users:
   - Client Credentials
   - Client Credentials with JWT
   - JWT Bearer Token Grant
+- Target Org and Space
 
 ## Basic usage
 
@@ -48,7 +49,11 @@ steps:
 * `username`
     * username for `password` grant
 * `password`
-    * password for `password` grant
+    * password for `password` 
+* `org`
+    * organization name
+* `space`
+    * space name
 * `version`
     * cf cli version
     * required

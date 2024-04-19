@@ -24,7 +24,13 @@ inputs:
     description: "username"
     required: false
   password:
-    description: "username"
+    description: "password"
+    required: false
+  org:
+    description: "org"
+    required: false
+  space:
+    description: "space"
     required: false
   version:
     description: "cf cli version"
