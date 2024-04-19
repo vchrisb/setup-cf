@@ -28896,7 +28896,7 @@ function run() {
                     throw new Error(`>>> For JWT Bearer Token Grant zone, client_id and client_secret need to be provided`);
                 }
                 if (!id_token) {
-                    let id_token = yield request_github_idToken(zone);
+                    id_token = yield request_github_idToken(zone);
                     core.info(">>> Successfully requested github id_token");
                 }
                 let uaaEndpoint = JSON.parse(fs.readFileSync(cf_config)).UaaEndpoint;

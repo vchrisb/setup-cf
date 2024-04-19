@@ -115,7 +115,7 @@ async function run() {
         );
       }
       if (!id_token) {
-        let id_token = await request_github_idToken(zone);
+        id_token = await request_github_idToken(zone);
         core.info(">>> Successfully requested github id_token");
       }
       let uaaEndpoint = JSON.parse(fs.readFileSync(cf_config)).UaaEndpoint;
