@@ -7,7 +7,7 @@ This action provides the following functionality for GitHub Actions users:
   - Password
   - Client Credentials
   - Client Credentials with JWT
-  - 
+  - JWT Bearer Token Grant
 
 ## Basic usage
 
@@ -54,7 +54,7 @@ steps:
     * required
     * default: `8.7.10`
 * `zone`
-    * zone name used audience in the JWT Bearer Token Grant
+    * zone name used for audience in the JWT Bearer Token Grant
     * required
     * default: `uaa`
 
