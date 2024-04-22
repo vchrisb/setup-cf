@@ -58,11 +58,11 @@ steps:
 * `username`
     * username for `password` grant
 * `password`
-    * password for `password` 
+    * password for `password` grant
 * `org`
-    * organization name
+    * Cloud Foundry organization name
 * `space`
-    * space name
+    * Cloud Foundry space name
 * `version`
     * cf cli version
     * required
