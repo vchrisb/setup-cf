@@ -34,8 +34,10 @@ steps:
 * `api`
     * Url of the cloud controller api
     * required
-* `client_assertion`
-    * jwt for usage with `private_key_jwt`
+* `audience`
+    * audience for requesting the Github `id_token` used for JWT Bearer Token Grant
+    * required
+    * default: `uaa`
 * `client_id`
     * client id for `client_credentals` or `jwt-bearer`
 * `client_secret`
@@ -51,8 +53,8 @@ steps:
         * `client_credentals`
         * `private_key_jwt`
         * `jwt-bearer`
-* `id_token`
-    * id_token to be used for `jwt-bearer`, if not specified a Github id_token will be requested
+* `jwt`
+    * jwt for usage with `private_key_jwt` or `jwt-bearer`. If none is specified for `jwt-bearer`, a Github `id_token` will be requested
 * `username`
     * username for `password` grant
 * `password`
@@ -65,10 +67,6 @@ steps:
     * cf cli version
     * required
     * default: `8.7.10`
-* `audience`
-    * audience for requesting the id_token used for JWT Bearer Token Grant
-    * required
-    * default: `uaa`
 
 ## Advanced
 

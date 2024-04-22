@@ -12,9 +12,6 @@ inputs:
     description: "github id_token audience"
     required: false
     default: "uaa"
-  client_assertion:
-    description: "client assertion for requesting token"
-    required: true
   client_id:
     description: "client id"
     required: false
@@ -28,8 +25,8 @@ inputs:
     description: "grant type for requesting token"
     required: true
     default: "password"
-  id_token:
-    description: "id_token for JWT Bearer Token Grant"
+  jwt:
+    description: "jwt for usage with `private_key_jwt` or `jwt-bearer`."
     required: false
   username:
     description: "username"

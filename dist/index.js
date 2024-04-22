@@ -28879,11 +28879,10 @@ function run() {
         try {
             let api = core.getInput("api", { required: true });
             let grant_type = core.getInput("grant_type", { required: true });
-            let client_assertion = core.getInput("client_assertion");
             let client_id = core.getInput("client_id");
             let client_secret = core.getInput("client_secret");
             let command = core.getInput("command");
-            let id_token = core.getInput("id_token");
+            let jwt = core.getInput("jwt");
             let username = core.getInput("username");
             let password = core.getInput("password");
             let org = core.getInput("org");
@@ -28898,22 +28897,22 @@ function run() {
                 if (!audience || !client_id || !client_secret) {
                     throw new Error(`>>> For JWT Bearer Token Grant audience, client_id and client_secret need to be provided`);
                 }
-                if (!id_token) {
-                    id_token = yield request_github_idToken(audience);
-                    core.info(">>> Successfully requested github id_token");
+                if (!jwt) {
+                    jwt = yield request_github_idToken(audience);
+                    core.info(">>> Successfully requested github id token");
                 }
                 let uaaEndpoint = JSON.parse(fs.readFileSync(cf_config)).UaaEndpoint;
-                let token = yield request_token_jwt_bearer(uaaEndpoint, client_id, client_secret, id_token);
+                let token = yield request_token_jwt_bearer(uaaEndpoint, client_id, client_secret, jwt);
                 core.info(">>> Successfully requested uaa token using JWT Bearer Token Grant");
                 yield update_cf_token(token);
                 core.info(">>> Successfully updated token in cf config");
             }
             else if (grant_type == "private_key_jwt") {
-                if (!client_assertion) {
-                    throw new Error(`>>> For Client Credentials Grant using private_key_jwt, client_assertion needs to be provided`);
+                if (!jwt) {
+                    throw new Error(`>>> For Client Credentials Grant using private_key_jwt, jwt needs to be provided`);
                 }
                 let uaaEndpoint = JSON.parse(fs.readFileSync(cf_config)).UaaEndpoint;
-                let token = yield request_token_jwt(uaaEndpoint, client_assertion);
+                let token = yield request_token_jwt(uaaEndpoint, jwt);
                 core.info(">>> Successfully requested uaa token using Client Credentials Grant with private_key_jwt");
                 yield update_cf_token(token);
                 core.info(">>> Successfully updated token in cf config");
