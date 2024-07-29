@@ -43,7 +43,7 @@ inputs:
   version:
     description: "cf cli version"
     required: true
-    default: "8.7.10"
+    default: "8.7.11"
 runs:
   using: "node20"
   main: "dist/index.js"
