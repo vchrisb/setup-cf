@@ -2498,11 +2498,11 @@ function getProxyUrl(reqUrl) {
     })();
     if (proxyVar) {
         try {
-            return new URL(proxyVar);
+            return new DecodedURL(proxyVar);
         }
         catch (_a) {
             if (!proxyVar.startsWith('http://') && !proxyVar.startsWith('https://'))
-                return new URL(`http://${proxyVar}`);
+                return new DecodedURL(`http://${proxyVar}`);
         }
     }
     else {
@@ -2560,6 +2560,19 @@ function isLoopbackAddress(host) {
         hostLower.startsWith('127.') ||
         hostLower.startsWith('[::1]') ||
         hostLower.startsWith('[0:0:0:0:0:0:0:1]'));
+}
+class DecodedURL extends URL {
+    constructor(url, base) {
+        super(url, base);
+        this._decodedUsername = decodeURIComponent(super.username);
+        this._decodedPassword = decodeURIComponent(super.password);
+    }
+    get username() {
+        return this._decodedUsername;
+    }
+    get password() {
+        return this._decodedPassword;
+    }
 }
 //# sourceMappingURL=proxy.js.map
 
@@ -28929,16 +28942,16 @@ function run() {
                     throw new Error(`>>> For Password authentication, username and password need to be provided`);
                 }
                 yield exec.exec("cf", ["auth", username, password], { silent: true });
-                core.info(">>> Successfully authenticated using client credentials");
+                core.info(">>> Successfully authenticated");
             }
             else {
                 throw new Error(`>>> Unsupported grant type: ${grant_type}`);
             }
             if (org && space) {
                 yield exec.exec("cf", ["target", "-o", org, "-s", space]);
-                if (command) {
-                    yield exec.exec("cf", command.match(/(?:[^\s"']+|['"][^'"]*["'])+/g));
-                }
+            }
+            if (command) {
+                yield exec.exec("cf", command.match(/(?:[^\s"']+|['"][^'"]*["'])+/g));
             }
         }
         catch (error) {
