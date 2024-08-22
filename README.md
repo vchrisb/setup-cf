@@ -66,7 +66,7 @@ steps:
 * `version`
     * cf cli version
     * required
-    * default: `8.7.10`
+    * default: `8.8.0`
 
 ## Advanced
 
