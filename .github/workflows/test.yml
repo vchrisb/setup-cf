@@ -21,7 +21,7 @@ jobs:
       - run: npm install -g @vercel/ncc
       - run: npm clean-install
       - run: npx prettier . --check
-      - run: ncc build src/index.ts -m
+      - run: ncc build src/index.ts
       - run: git diff || (echo "src/index.ts not updated" && exit 1)
   login:
     needs: validate
