@@ -19,9 +19,15 @@ jobs:
         with:
           node-version: 20
       - run: npm clean-install
-      - run: npx prettier . --check
-      - run: npx ncc build
-      - run: git diff || (echo "src/index.ts not updated" && exit 1)
+      - run: npm run format-check
+      - run: npm run build
+      - name: Compare the expected and actual dist/ directories
+        run: |
+          if [ "$(git diff --ignore-space-at-eol dist/ | wc -l)" -gt "0" ]; then
+            echo "Detected uncommitted changes after build.  See status below:"
+            git diff
+            exit 1
+          fi
   login:
     needs: validate
     environment: dhaka

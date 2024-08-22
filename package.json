@@ -5,7 +5,8 @@
   "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npx prettier . --write",
+    "format": "npx prettier . --write",
+    "format-check": "prettier --check",
     "build": "ncc build"
   },
   "keywords": [],
