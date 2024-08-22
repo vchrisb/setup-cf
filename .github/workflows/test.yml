@@ -4,6 +4,7 @@ name: test
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
+    branches: [ "main" ]
   pull_request:
 
   # Allows you to run this workflow manually from the Actions tab
@@ -17,7 +18,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-      - run: npm i -g @vercel/ncc
+      - run: npm i -g @vercel/ncc typescript
       - run: npx prettier . --check
       - run: ncc build src/index.ts
       - run: git diff --quiet || echo "src/index.ts not updated" && return 1
