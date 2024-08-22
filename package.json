@@ -2,11 +2,12 @@
   "name": "setup-cf",
   "version": "0.0.4",
   "description": "Github action to setup Cloud Foundry cli",
-  "main": "dist/index.js",
+  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npx prettier . --write",
-    "build": "ncc build src/index.ts"
+    "format": "npx prettier . --write",
+    "format-check": "prettier . --check",
+    "build": "ncc build"
   },
   "keywords": [],
   "author": "Christopher Banck",
@@ -17,9 +18,10 @@
     "@actions/tool-cache": "^2.0.1"
   },
   "devDependencies": {
-    "@types/node": "^20.12.7",
-    "prettier": "3.2.5",
-    "typescript": "^5.4.5"
+    "@types/node": "^22.5.0",
+    "@vercel/ncc": "^0.38.1",
+    "prettier": "^3.3.3",
+    "typescript": "^5.4.4"
   },
   "engines": {
     "node": ">=20.0.0 <21.0.0"

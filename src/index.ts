@@ -164,18 +164,18 @@ async function run() {
         );
       }
       await exec.exec("cf", ["auth", username, password], { silent: true });
-      core.info(">>> Successfully authenticated using client credentials");
+      core.info(">>> Successfully authenticated");
     } else {
       throw new Error(`>>> Unsupported grant type: ${grant_type}`);
     }
     if (org && space) {
       await exec.exec("cf", ["target", "-o", org, "-s", space]);
-      if (command) {
-        await exec.exec("cf", command.match(/(?:[^\s"']+|['"][^'"]*["'])+/g));
-      }
+    }
+    if (command) {
+      await exec.exec("cf", command.match(/(?:[^\s"']+|['"][^'"]*["'])+/g));
     }
   } catch (error) {
-    core.setFailed(error.message);
+    core.setFailed(`${(error as any)?.message ?? error}`);
   }
 }
 
