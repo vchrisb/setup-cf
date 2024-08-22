@@ -18,7 +18,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-      - run: npm i -g @vercel/ncc typescript
+      - run: npm install -g @vercel/ncc
+      - run: npm clean-install
       - run: npx prettier . --check
       - run: ncc build src/index.ts
       - run: git diff --quiet || echo "src/index.ts not updated" && return 1
