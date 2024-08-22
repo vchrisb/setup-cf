@@ -1,0 +1,42 @@
+name: test
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: ["main"]
+  pull_request:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm install -g @vercel/ncc
+      - run: npm clean-install
+      - run: npx prettier . --check
+      - run: ncc build src/index.ts
+      - run: git diff --quiet || echo "src/index.ts not updated" && return 1
+  login:
+    needs: validate
+    environment: dhaka
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup cf cli
+        uses: ./
+        with:
+          api: ${{ secrets.CF_API }}
+          username: ${{ secrets.CF_USERNAME }}
+          password: ${{ secrets.CF_PASSWORD }}
+          org: ${{ secrets.CF_ORG }}
+          space: ${{ secrets.CF_SPACE }}
+          command: stacks
+      - name: access cloud foundry api
+        run: cf stacks
