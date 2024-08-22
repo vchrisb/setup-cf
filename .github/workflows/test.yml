@@ -1,0 +1,27 @@
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+  pull_request:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  password:
+    name: password
+    environment: dhaka
+    runs-on: ubuntu-latest
+    steps:
+    - name: setup cf cli
+      uses: ./
+      with:
+        api: ${{ secrets.CF_API }}
+        username: ${{ secrets.CF_USERNAME }}
+        password: ${{ secrets.CF_PASSWORD }}
+        org: ${{ secrets.CF_ORG }}
+        space: ${{ secrets.CF_SPACE }}
+    - name: access cloud foundry api
+      run: cf stacks
