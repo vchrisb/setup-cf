@@ -18,10 +18,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm install -g @vercel/ncc
       - run: npm clean-install
       - run: npx prettier . --check
-      - run: ncc build src/index.ts
+      - run: npx ncc build
       - run: git diff || (echo "src/index.ts not updated" && exit 1)
   login:
     needs: validate
