@@ -1,4 +1,4 @@
-name: CI
+name: test
 
 # Controls when the workflow will run
 on:
@@ -10,20 +10,30 @@ on:
   workflow_dispatch:
 
 jobs:
-  password:
-    name: password
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm i -g @vercel/ncc
+      - run: npx prettier . --check
+      - run: ncc build src/index.ts
+      - run: git diff --quiet || echo "src/index.ts not updated" && return 1
+  login:
     environment: dhaka
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: setup cf cli
-      uses: ./
-      with:
-        api: ${{ secrets.CF_API }}
-        username: ${{ secrets.CF_USERNAME }}
-        password: ${{ secrets.CF_PASSWORD }}
-        org: ${{ secrets.CF_ORG }}
-        space: ${{ secrets.CF_SPACE }}
-        command: stacks
-    - name: access cloud foundry api
-      run: cf stacks
+      - uses: actions/checkout@v4
+      - name: setup cf cli
+        uses: ./
+        with:
+          api: ${{ secrets.CF_API }}
+          username: ${{ secrets.CF_USERNAME }}
+          password: ${{ secrets.CF_PASSWORD }}
+          org: ${{ secrets.CF_ORG }}
+          space: ${{ secrets.CF_SPACE }}
+          command: stacks
+      - name: access cloud foundry api
+        run: cf stacks
