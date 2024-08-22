@@ -15,6 +15,7 @@ jobs:
     environment: dhaka
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
     - name: setup cf cli
       uses: ./
       with:
