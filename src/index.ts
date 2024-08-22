@@ -175,7 +175,7 @@ async function run() {
       await exec.exec("cf", command.match(/(?:[^\s"']+|['"][^'"]*["'])+/g));
     }
   } catch (error) {
-    core.setFailed(error.message);
+    core.setFailed(`${(error as any)?.message ?? error}`);
   }
 }
 
