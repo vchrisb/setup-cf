@@ -24,6 +24,7 @@ jobs:
       - run: ncc build src/index.ts
       - run: git diff --quiet || echo "src/index.ts not updated" && return 1
   login:
+    needs: validate
     environment: dhaka
     runs-on: ubuntu-latest
     steps:
