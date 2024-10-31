@@ -42,6 +42,5 @@ jobs:
           password: ${{ secrets.CF_PASSWORD }}
           org: ${{ secrets.CF_ORG }}
           space: ${{ secrets.CF_SPACE }}
-          command: stacks
       - name: access cloud foundry api
         run: cf stacks
