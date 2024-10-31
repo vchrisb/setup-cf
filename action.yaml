@@ -18,9 +18,6 @@ inputs:
   client_secret:
     description: "client secret"
     required: false
-  command:
-    description: "run cf command"
-    required: false
   grant_type:
     description: "grant type for requesting token"
     required: true
@@ -43,7 +40,7 @@ inputs:
   version:
     description: "cf cli version"
     required: true
-    default: "8.8.2"
+    default: "8.8.3"
 runs:
   using: "node20"
   main: "dist/index.js"
