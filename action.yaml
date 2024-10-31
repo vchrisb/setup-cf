@@ -42,5 +42,5 @@ inputs:
     required: true
     default: "8.8.3"
 runs:
-  using: "node20"
+  using: "node22"
   main: "dist/index.js"

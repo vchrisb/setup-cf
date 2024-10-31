@@ -17,7 +17,7 @@ See [action.yml](action.yml)
 ```yaml
 steps:
 - uses: actions/checkout@v4
-- uses: vchrisb/setup-cf@v0
+- uses: vchrisb/setup-cf@v1
   with:
     api: ${{ secrets.CF_API }}
     username: ${{ secrets.CF_USERNAME }}
@@ -62,7 +62,7 @@ steps:
 * `version`
     * cf cli version
     * required
-    * default: `8.8.0`
+    * default: `8.8.3`
 
 ## Advanced
 
