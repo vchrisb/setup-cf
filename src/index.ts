@@ -198,9 +198,15 @@ async function handlePassword(username, password) {
   if (!username || !password) {
     throw new Error("Password authentication requires username and password");
   }
-  await exec.exec("cf", ["auth", username, password], {
-    silent: true,
-  });
+  try {
+    await exec.exec("cf", ["auth", username, password], {
+      silent: true,
+    });
+  } catch (error) {
+    throw new Error(
+      `Failed to authenticate using password: ${error instanceof Error ? error.message : String(error)}`,
+    );
+  }
   core.info(">>> Successfully authenticated using password");
 }
 
