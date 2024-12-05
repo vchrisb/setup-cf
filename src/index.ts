@@ -46,7 +46,7 @@ async function install_cf(version) {
 
 async function setup_cf(api) {
   try {
-    await exec.exec("cf", ["api", api], { silent: true });
+    await exec.exec("cf", ["api", api], { silent: false });
     core.info(">>> Successfully set CF API endpoint");
   } catch (error) {
     throw new Error(
@@ -189,7 +189,7 @@ async function handleClientCredentials(client_id, client_secret) {
   await exec.exec(
     "cf",
     ["auth", client_id, client_secret, "--client-credentials"],
-    { silent: true },
+    { silent: false },
   );
   core.info(">>> Successfully authenticated using client credentials");
 }
@@ -199,7 +199,7 @@ async function handlePassword(username, password) {
     throw new Error("Password authentication requires username and password");
   }
   await exec.exec("cf", ["auth", username, password], {
-    silent: true,
+    silent: false,
   });
   core.info(">>> Successfully authenticated using password");
 }
