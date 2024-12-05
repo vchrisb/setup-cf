@@ -87,6 +87,6 @@ uaa curl /oauth/clients -X POST -H "Content-Type: application/json" -d '{"client
 
 ```
 npm i -g @vercel/ncc
-npm run lint
+npm run format
 npm run build
 ```
