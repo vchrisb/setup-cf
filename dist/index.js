@@ -28327,7 +28327,7 @@ function install_cf(version) {
 function setup_cf(api) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield exec.exec("cf", ["api", api], { silent: true });
+            yield exec.exec("cf", ["api", api], { silent: false });
             core.info(">>> Successfully set CF API endpoint");
         }
         catch (error) {
@@ -28438,7 +28438,7 @@ function handleClientCredentials(client_id, client_secret) {
         if (!client_id || !client_secret) {
             throw new Error("Client Credentials authentication requires client_id and client_secret");
         }
-        yield exec.exec("cf", ["auth", client_id, client_secret, "--client-credentials"], { silent: true });
+        yield exec.exec("cf", ["auth", client_id, client_secret, "--client-credentials"], { silent: false });
         core.info(">>> Successfully authenticated using client credentials");
     });
 }
@@ -28448,7 +28448,7 @@ function handlePassword(username, password) {
             throw new Error("Password authentication requires username and password");
         }
         yield exec.exec("cf", ["auth", username, password], {
-            silent: true,
+            silent: false,
         });
         core.info(">>> Successfully authenticated using password");
     });
