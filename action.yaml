@@ -11,7 +11,6 @@ inputs:
   audience:
     description: "github id_token audience"
     required: false
-    default: "uaa"
   client_id:
     description: "client id"
     required: false
@@ -23,7 +22,7 @@ inputs:
     required: true
     default: "password"
   jwt:
-    description: "jwt for usage with `private_key_jwt` or `jwt-bearer`."
+    description: "jwt for usage with `client_credentials` or `jwt-bearer`."
     required: false
   username:
     description: "username"
@@ -34,13 +33,17 @@ inputs:
   org:
     description: "org"
     required: false
+  skip_ssl_validation:
+    description: "skip_ssl_validation"
+    required: false
+    default: "false"
   space:
     description: "space"
     required: false
   version:
     description: "cf cli version"
     required: true
-    default: "8.11.0"
+    default: "8.12.0"
 runs:
   using: "node20"
   main: "dist/index.js"
