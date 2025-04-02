@@ -1,6 +1,6 @@
 {
   "name": "setup-cf",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Github action to setup Cloud Foundry cli",
   "main": "src/index.ts",
   "scripts": {
@@ -15,10 +15,11 @@
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/exec": "^1.1.1",
-    "@actions/tool-cache": "^2.0.2"
+    "@actions/tool-cache": "^2.0.2",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
-    "@types/node": "^22.13.10",
+    "@types/node": "^22.13.17",
     "@vercel/ncc": "^0.38.3",
     "prettier": "^3.5.3",
     "typescript": "^5.8.2"
