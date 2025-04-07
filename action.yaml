@@ -24,14 +24,17 @@ inputs:
   jwt:
     description: "jwt for usage with `client_credentials` or `jwt-bearer`."
     required: false
+  org:
+    description: "org"
+    required: false
+  origin:
+    description: "origin"
+    required: false
   username:
     description: "username"
     required: false
   password:
     description: "password"
-    required: false
-  org:
-    description: "org"
     required: false
   skip_ssl_validation:
     description: "skip_ssl_validation"

@@ -48,12 +48,14 @@ steps:
         * `jwt-bearer`
 * `jwt`
     * jwt for usage with `client_credentals` or `jwt-bearer`. If omitted, a GitHub `id_token` will be requested
+* `org`
+    * Cloud Foundry organization name
+* `origin`
+    * Origin to be used for authentication with `jwt-bearer` or `password`
 * `username`
     * username for `password` grant
 * `password`
     * password for `password` grant
-* `org`
-    * Cloud Foundry organization name
 * `skip_ssl_validation`
     * Skip verification of the API endpoint
     * default: `false`
@@ -127,7 +129,7 @@ The cf cli will be authenticated as an user, which username is defined by the `a
 The UAA client used does need to include `client_credentials` in the `authorized_grant_types`.
 
 ```
-uaac client add setup-cf --scope uaa.none --authorities cloud_controller.read --authorized_grant_type "client_credentials"
+uaac client add setup-cf --scope uaa.none --authorities cloud_controller.read,cloud_controller.write,clients.read --authorized_grant_type "client_credentials"
 ```
 
 Add the jwt configuration to the client.

@@ -46,7 +46,13 @@ async function setup_cf(api, skip_ssl_validation) {
   }
 }
 
-async function handleJwtBearer(audience, client_id, client_secret, jwt) {
+async function handleJwtBearer(
+  audience,
+  client_id,
+  client_secret,
+  jwt,
+  origin,
+) {
   if (!jwt) {
     core.info(">>> Requesting GitHub ID token");
     if (!audience) {
@@ -71,6 +77,11 @@ async function handleJwtBearer(audience, client_id, client_secret, jwt) {
 
   // Add assertion parameter and JWT token
   args.push("--assertion", jwt);
+
+  // Add origin only if passed
+  if (origin) {
+    args.push("--origin", origin);
+  }
 
   // Execute command with constructed arguments
   await exec.exec("cf", args, { silent: false });
@@ -106,13 +117,21 @@ async function handleClientCredentials(client_id, client_secret) {
   core.info(">>> Successfully authenticated using client credentials");
 }
 
-async function handlePassword(username, password) {
+async function handlePassword(username, password, origin) {
   if (!username || !password) {
     throw new Error("Password authentication requires username and password");
   }
-  await exec.exec("cf", ["auth", username, password], {
-    silent: false,
-  });
+
+  // Build command arguments array
+  const args = ["auth", username, password];
+
+  // Add origin only if passed
+  if (origin) {
+    args.push("--origin", origin);
+  }
+
+  // Execute command with constructed arguments
+  await exec.exec("cf", args, { silent: false });
   core.info(">>> Successfully authenticated using password");
 }
 
@@ -139,6 +158,7 @@ async function run() {
       grant_type: core.getInput("grant_type", { required: true }),
       jwt: core.getInput("jwt"),
       org: core.getInput("org"),
+      origin: core.getInput("origin"),
       password: core.getInput("password"),
       skip_ssl_validation:
         core.getInput("skip_ssl_validation").toLowerCase() === "true",
@@ -169,6 +189,7 @@ async function run() {
           inputs.client_id,
           inputs.client_secret,
           inputs.jwt,
+          inputs.origin,
         );
         break;
 
@@ -187,7 +208,7 @@ async function run() {
         break;
 
       case GRANT_TYPES.PASSWORD:
-        await handlePassword(inputs.username, inputs.password);
+        await handlePassword(inputs.username, inputs.password, inputs.origin);
         break;
 
       default:
