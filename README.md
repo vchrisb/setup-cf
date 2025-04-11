@@ -115,6 +115,7 @@ jobs:
         api: ${{ secrets.CF_API }}
         client_id: setup-cf
         grant_type: client_credentials
+        jwt: ${{ secrets.JWT }} # can be omitted when using GitHub id token
         org: test
         space: dev
     - name: run cf command
@@ -124,6 +125,8 @@ jobs:
 ## Advanced Configuration
 
 ### Setting up UAA for GitHub Authentication
+
+The GitHub ID token can either be used for JWT Bearer Token Grant or Client Credentials.
 
 #### Prerequisites
 - UAA version 77.20.4 or higher
