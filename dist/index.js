@@ -34416,7 +34416,7 @@ function setup_cf(api, skip_ssl_validation) {
         }
     });
 }
-function handleJwtBearer(audience, client_id, client_secret, jwt) {
+function handleJwtBearer(audience, client_id, client_secret, jwt, origin) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!jwt) {
             core.info(">>> Requesting GitHub ID token");
@@ -34438,6 +34438,10 @@ function handleJwtBearer(audience, client_id, client_secret, jwt) {
         }
         // Add assertion parameter and JWT token
         args.push("--assertion", jwt);
+        // Add origin only if passed
+        if (origin) {
+            args.push("--origin", origin);
+        }
         // Execute command with constructed arguments
         yield exec.exec("cf", args, { silent: false });
         core.info(">>> Successfully authenticated using JWT Bearer Token Grant");
@@ -34462,14 +34466,19 @@ function handleClientCredentials(client_id, client_secret) {
         core.info(">>> Successfully authenticated using client credentials");
     });
 }
-function handlePassword(username, password) {
+function handlePassword(username, password, origin) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!username || !password) {
             throw new Error("Password authentication requires username and password");
         }
-        yield exec.exec("cf", ["auth", username, password], {
-            silent: false,
-        });
+        // Build command arguments array
+        const args = ["auth", username, password];
+        // Add origin only if passed
+        if (origin) {
+            args.push("--origin", origin);
+        }
+        // Execute command with constructed arguments
+        yield exec.exec("cf", args, { silent: false });
         core.info(">>> Successfully authenticated using password");
     });
 }
@@ -34499,6 +34508,7 @@ function run() {
                 grant_type: core.getInput("grant_type", { required: true }),
                 jwt: core.getInput("jwt"),
                 org: core.getInput("org"),
+                origin: core.getInput("origin"),
                 password: core.getInput("password"),
                 skip_ssl_validation: core.getInput("skip_ssl_validation").toLowerCase() === "true",
                 space: core.getInput("space"),
@@ -34519,7 +34529,7 @@ function run() {
             // Handle authentication based on grant type
             switch (inputs.grant_type) {
                 case GRANT_TYPES.JWT_BEARER:
-                    yield handleJwtBearer(inputs.audience, inputs.client_id, inputs.client_secret, inputs.jwt);
+                    yield handleJwtBearer(inputs.audience, inputs.client_id, inputs.client_secret, inputs.jwt, inputs.origin);
                     break;
                 case GRANT_TYPES.CLIENT_CREDENTIALS:
                     if (inputs.client_id && inputs.client_secret) {
@@ -34533,7 +34543,7 @@ function run() {
                     }
                     break;
                 case GRANT_TYPES.PASSWORD:
-                    yield handlePassword(inputs.username, inputs.password);
+                    yield handlePassword(inputs.username, inputs.password, inputs.origin);
                     break;
                 default:
                     throw new Error(`Unsupported grant type: ${inputs.grant_type}`);
