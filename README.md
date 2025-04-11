@@ -70,15 +70,15 @@ The simplest authentication method using username and password:
     space: myspace
 ```
 
-### JWT Bearer Token Grant with GitHub OIDC
+### JWT Bearer Token Grant
 
-This method leverages GitHub's OIDC provider for secure, token-based authentication:
+This method leverages JWT Bearer token-based authentication:
 
 ```yaml
 name: JWT Bearer Flow using GitHub id_token
 on: [push]
 permissions:
-  id-token: write  # Required for requesting the JWT
+  id-token: write  # Required for requesting the GitHub JWT
   contents: read   # Required for actions/checkout
 jobs:
   deploy:
@@ -89,6 +89,7 @@ jobs:
       with:
         api: ${{ secrets.CF_API }}
         grant_type: jwt-bearer
+        jwt: ${{ secrets.JWT }} # can be omitted when using GitHub id token
         org: test
         space: dev
     - name: run cf command
@@ -103,8 +104,8 @@ This method uses client credentials with JWT verification:
 name: Client Credentials using GitHub id_token
 on: [push]
 permissions:
-  id-token: write
-  contents: read
+  id-token: write  # Required for requesting the GitHub JWT
+  contents: read   # Required for actions/checkout
 jobs:
   deploy:
     runs-on: ubuntu-latest
