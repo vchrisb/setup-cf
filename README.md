@@ -75,7 +75,7 @@ The simplest authentication method using username and password:
 This method leverages JWT Bearer token-based authentication:
 
 ```yaml
-name: JWT Bearer Flow using GitHub id_token
+name: JWT Bearer Flow
 on: [push]
 permissions:
   id-token: write  # Required for requesting the GitHub JWT
@@ -96,12 +96,38 @@ jobs:
       run: cf apps
 ```
 
+By default the `cf` client will be used.
+
+### Client Credentials
+
+This method uses client credentials:
+
+```yaml
+name: Client Credentials
+on: [push]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: vchrisb/setup-cf@v2
+      with:
+        api: ${{ secrets.CF_API }}
+        client_id: ${{ secrets.CF_CLIENT_ID }}
+        client_secret: ${{ secrets.CF_CLIENT_SECRET }}
+        grant_type: client_credentials
+        org: test
+        space: dev
+    - name: run cf command
+      run: cf apps
+```
+
 ### Client Credentials with JWT
 
 This method uses client credentials with JWT verification:
 
 ```yaml
-name: Client Credentials using GitHub id_token
+name: Client Credentials with JWT
 on: [push]
 permissions:
   id-token: write  # Required for requesting the GitHub JWT
@@ -114,7 +140,7 @@ jobs:
     - uses: vchrisb/setup-cf@v2
       with:
         api: ${{ secrets.CF_API }}
-        client_id: setup-cf
+        client_id: ${{ secrets.CF_CLIENT_ID }}
         grant_type: client_credentials
         jwt: ${{ secrets.JWT }} # can be omitted when using GitHub id token
         org: test
