@@ -1,6 +1,6 @@
 {
   "name": "setup-cf",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Github action to setup Cloud Foundry cli",
   "main": "src/index.ts",
   "scripts": {
