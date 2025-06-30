@@ -51,7 +51,7 @@ steps:
 | `password` | Password for `password` grant type | No | - |
 | `skip_ssl_validation` | Skip verification of the API endpoint (not recommended for production) | No | `false` |
 | `space` | Cloud Foundry space name to target | No | - |
-| `version` | Cloud Foundry CLI version to install | Yes | `8.13.0` |
+| `version` | Cloud Foundry CLI version to install | Yes | `8.14.1` |
 
 ## Authentication Methods
 
