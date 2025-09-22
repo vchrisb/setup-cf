@@ -28,7 +28,7 @@ jobs:
           fi
   login:
     needs: validate
-    environment: cf
+    environment: dhaka
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
