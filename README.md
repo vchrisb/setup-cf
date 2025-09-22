@@ -23,8 +23,8 @@ See [action.yml](action.yml) for complete action definition.
 
 ```yaml
 steps:
-- uses: actions/checkout@v4
-- uses: vchrisb/setup-cf@v2
+- uses: actions/checkout@v5
+- uses: vchrisb/setup-cf@v3
   with:
     api: ${{ secrets.CF_API }}
     username: ${{ secrets.CF_USERNAME }}
@@ -60,7 +60,7 @@ steps:
 The simplest authentication method using username and password:
 
 ```yaml
-- uses: vchrisb/setup-cf@v2
+- uses: vchrisb/setup-cf@v3
   with:
     api: ${{ secrets.CF_API }}
     grant_type: password
@@ -84,8 +84,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: vchrisb/setup-cf@v2
+    - uses: actions/checkout@v5
+    - uses: vchrisb/setup-cf@v3
       with:
         api: ${{ secrets.CF_API }}
         grant_type: jwt-bearer
@@ -109,8 +109,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: vchrisb/setup-cf@v2
+    - uses: actions/checkout@v5
+    - uses: vchrisb/setup-cf@v3
       with:
         api: ${{ secrets.CF_API }}
         client_id: ${{ secrets.CF_CLIENT_ID }}
@@ -136,8 +136,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: vchrisb/setup-cf@v2
+    - uses: actions/checkout@v5
+    - uses: vchrisb/setup-cf@v3
       with:
         api: ${{ secrets.CF_API }}
         client_id: ${{ secrets.CF_CLIENT_ID }}
